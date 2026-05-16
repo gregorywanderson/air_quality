@@ -1,0 +1,16 @@
+.env
+*csv
+*.pkl
+*.parquet
+__pycache/
+.ipynb_checkpoints
+
+habitatmapdownloader.ipynb
+intro_pyaqsapi.ipynb
+modulair_example.py
+old_aqicolors.py
+particulate_matter.ipynb
+save.intro_pyaqsapi.ipynb
+
+
+habitatmapdownloader.ipynb
