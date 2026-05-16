@@ -1,9 +1,10 @@
 .env
-*csv
+*.csv
 *.pkl
 *.parquet
-__pycache/
+__pycache__/
 .ipynb_checkpoints
+.gitignore~
 
 habitatmapdownloader.ipynb
 intro_pyaqsapi.ipynb
@@ -11,6 +12,5 @@ modulair_example.py
 old_aqicolors.py
 particulate_matter.ipynb
 save.intro_pyaqsapi.ipynb
-
-
-habitatmapdownloader.ipynb
+purple_air.py
+particulatematter.py
