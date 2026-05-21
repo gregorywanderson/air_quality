@@ -88,7 +88,8 @@ def plot_time_heatmap(
         fig, ax = plt.subplots(figsize=(14, 5))
 
     # Build 2D grid: rows=hours (0-23), cols=day of year (0-364)
-    grid = np.full((24, 365), np.nan)
+    n_days = 366 if pd.Timestamp(year, 1, 1).is_leap_year else 365
+    grid = np.full((24, n_days), np.nan)
 
     # Handle both DatetimeIndex and datetime column
     if hasattr(data.index, "day_of_year"):
