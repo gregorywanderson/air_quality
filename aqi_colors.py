@@ -33,14 +33,17 @@ AQI_COLORS = {
 # Each entry: (low, high, color_name)
 # high=None means "up to y_max" in plots
 AQI_BREAKPOINTS = {
+    
+    # PM2.5 breakpoints updated May 6, 2024
     "pm25": [
-        (0.0,   12.0,  "green"),
-        (12.1,  35.4,  "yellow"),
+        (0.0,   9.0,   "green"),    # was 12.0
+        (9.1,   35.4,  "yellow"),   # was 12.1
         (35.5,  55.4,  "orange"),
-        (55.5,  150.4, "red"),
-        (150.5, 250.4, "purple"),
-        (250.5, None,  "maroon"),
+        (55.5,  125.4, "red"),      # was 150.4
+        (125.5, 225.4, "purple"),   # was 250.4
+        (225.5, None,  "maroon"),   # was 250.5
     ],
+    
     "o3_8hr": [
         (0.000, 0.054, "green"),
         (0.055, 0.070, "yellow"),
