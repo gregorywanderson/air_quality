@@ -135,9 +135,10 @@ def plot_time_heatmap(
         )
 
     # Plot the heatmap
+    
     mesh = ax.pcolormesh(
-        np.arange(365), np.arange(24), grid,
-        cmap=colormap, norm=norm, alpha=alpha
+        np.arange(grid.shape[1]), np.arange(grid.shape[0]), grid,
+        cmap=colormap, norm=norm, alpha=alpha, shading='nearest'
     )
 
     # Month labels on x-axis
