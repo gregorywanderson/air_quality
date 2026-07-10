@@ -1,0 +1,18 @@
+# Third-party dependencies for the air_quality repository (unpinned).
+#
+# Local modules are NOT listed (they are repo files, not PyPI packages):
+#   aqs_utils, aqs_codes, aqi_colors, fips_codes, plot_utils,
+#   particulate_matter, ParticulateMatterHistogram
+#
+# Note: aqi_colors.py and plot_utils.py in this repo are also imported by the
+# sibling `crocus` repository via a sys.path bridge. Keep them importable.
+
+pyaqsapi          # EPA AQS DataMart API client
+pandas
+numpy
+matplotlib
+cartopy           # geospatial maps (aqs_ozone_regional); may need system libs
+suntime           # sunrise/sunset for diurnal shading
+pytz              # timezone handling (NEIU local-time analysis)
+windrose          # wind / pollutant roses (neiu_ozone_study)
+python-dotenv     # load AQS API credentials from .env
