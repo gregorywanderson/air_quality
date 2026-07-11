@@ -1,124 +1,142 @@
-# Air Quality Analysis
+# Air Quality Analysis with Python
 
-Jupyter notebooks and Python utilities for analyzing air quality data from two
-sources: the [EPA Air Quality System (AQS)](https://www.epa.gov/aqs), and a
-rooftop pairing of a [QuantAQ MODULAIR](https://www.quantaq.com/modulair)
-low-cost air-quality sensor with an Ambient Weather WS-500 station on the roof of
-BBH on the main campus of Northeastern Illinois University (NEIU).
+Python notebooks and utilities for downloading, processing, and visualizing air-quality observations in northeastern Illinois. The repository combines:
 
-> **Note:** CROCUS urban-observatory work that previously lived here has moved to
-> its own repository, [`crocus`](https://github.com/gregorywanderson/crocus).
-> This repo now focuses on the EPA AQS and NEIU QuantAQ/WS-500 sources.
+- regulatory-grade measurements from the **EPA Air Quality System (AQS)**;
+- rooftop observations from a **QuantAQ MODULAIR** at Northeastern Illinois University (NEIU); and
+- local meteorological data used to investigate ozone episodes, lake-breeze influences, smoke events, and multi-pollutant behavior.
 
----
+CROCUS urban-observatory work that previously lived here has moved to the separate [`crocus`](https://github.com/gregorywanderson/crocus) repository.
 
-## Repository Structure
+<p align="center">
+  <img src="figures/github/neiu_hourly_ozone_timeseries_2025.png"
+       alt="Annual NEIU rooftop ozone time series with AQI background"
+       width="1000">
+</p>
 
-**Notebooks**
+## Example Analyses
 
-| Notebook | Description |
+### High-ozone event diagnostics
+
+The notebooks identify high-ozone periods and examine them using ozone, NO₂, wind direction, solar radiation, and temperature. These event panels are useful for investigating lake-breeze transport and local photochemical conditions.
+
+<p align="center">
+  <img src="figures/github/neiu_ozone_events_2025.png"
+       alt="NEIU high-ozone event diagnostic panels"
+       width="1000">
+</p>
+
+### Multi-pollutant observations at NEIU
+
+The NEIU rooftop MODULAIR provides simultaneous measurements of ozone, nitrogen oxides, carbon monoxide, carbon dioxide, and particulate matter. The example below includes the June 2023 Canadian wildfire-smoke episode.
+
+<p align="center">
+  <img src="figures/github/quantaq_time_series.png"
+       alt="Multi-pollutant QuantAQ time series at NEIU"
+       width="900">
+</p>
+
+### Diurnal and seasonal ozone structure
+
+Calendar and hour-of-day heatmaps reveal seasonal patterns, missing-data periods, and the afternoon ozone maximum characteristic of photochemical production and transport.
+
+<p align="center">
+  <img src="figures/github/aqs_ozone_heatmap_northbrook_water_plant_2024.png"
+       alt="Hourly ozone heatmap for the Northbrook Water Plant"
+       width="1000">
+</p>
+
+## Repository Organization
+
+### EPA AQS ozone analyses
+
+| File | Description |
 |---|---|
-| `aqs_ozone_study_cook.ipynb` | Cook County ozone study: timeseries, calendar heatmaps, top-ozone-day event panels, and wind/pollutant roses (Northbrook lake-breeze diagnostic) |
-| `aqs_ozone_timeseries.ipynb` | Time-series analysis of ozone readings from EPA AQS monitoring stations |
-| `aqs_ozone_regional.ipynb` | Regional/spatial analysis of ozone across multiple AQS sites (uses `cartopy` maps) |
-| `neiu_ozone_study.ipynb` | NEIU rooftop study pairing QuantAQ MODULAIR gases with Ambient Weather WS-500 wind: heatmaps, event panels, and roses |
-| `modulair_examples.ipynb` | Working examples for pulling and visualizing NEIU MODULAIR data |
-| `particulate_matter.ipynb` | Particulate-matter analysis |
-| `habitatmapdownloader.ipynb` | Downloader for AirBeam / HabitatMap data (in progress) |
+| `aqs_ozone_timeseries.ipynb` | Time-series analysis of ozone observations from EPA AQS monitoring stations. |
+| `aqs_ozone_study_cook.ipynb` | Cook County ozone analysis, including calendar heatmaps, high-ozone event panels, and lake-breeze diagnostics. |
+| `aqs_ozone_regional.ipynb` | Regional comparison and spatial analysis of ozone across multiple AQS monitoring sites. |
 
-**Modules**
+### NEIU rooftop observations
 
-| Module | Description |
+| File | Description |
 |---|---|
-| `aqs_utils.py` | Ingest and wrangle AQS API data (datetime parsing, validation, downloads) |
-| `aqs_codes.py` | AQS parameter and method code constants |
-| `aqi_colors.py` | AQI color scale and breakpoints (Good → Hazardous) for consistent styling |
-| `fips_codes.py` | FIPS geographic code lookups for state/county filtering |
-| `plot_utils.py` | Shared plotting helpers: hourly calendar heatmap and nighttime shading |
-| `particulate_matter.py`, `ParticulateMatterHistogram.py` | Particulate-matter analysis helpers |
+| `download_modulair_data.ipynb` | Downloads QuantAQ MODULAIR observations and archives annual CSV files locally. |
+| `modulair_exploration.ipynb` | Explores archived MODULAIR observations using resampling, heatmaps, multi-pollutant time series, AQI backgrounds, and CO₂ diagnostics. |
+| `neiu_ozone_study.ipynb` | Examines NEIU rooftop ozone episodes using QuantAQ gases and local meteorology, including event diagnostics and lake-breeze indicators. |
 
-> `aqi_colors.py` and `plot_utils.py` are also imported by the sibling
-> [`crocus`](https://github.com/gregorywanderson/crocus) repo (via a `sys.path`
-> bridge), so keep them importable if you reorganize.
+### Utility modules
 
----
+| File | Description |
+|---|---|
+| `aqs_utils.py` | Downloads, validates, and wrangles EPA AQS observations, including datetime handling. |
+| `aqs_codes.py` | Constants for commonly used AQS parameter, method, and related codes. |
+| `aqi_colors.py` | AQI breakpoints and colors used for consistent figure backgrounds and interpretation. |
+| `fips_codes.py` | State and county FIPS-code lookups used in AQS queries. |
+| `plot_utils.py` | Shared plotting utilities, including heatmaps and nighttime or daylight shading. |
 
-## Setup
+`aqi_colors.py` and `plot_utils.py` are also used by notebooks in the sibling [`crocus`](https://github.com/gregorywanderson/crocus) repository.
 
-### 1. Install dependencies
+## Data Sources
+
+### EPA Air Quality System
+
+The [EPA Air Quality System](https://www.epa.gov/aqs) provides regulatory monitoring data from federal, state, local, and tribal air-quality networks. The AQS notebooks use these observations to study ozone timing, spatial variability, and regional episodes.
+
+### NEIU QuantAQ MODULAIR
+
+A QuantAQ MODULAIR is operated on the roof of the BBH building at NEIU. It measures particulate matter and gases including CO, CO₂, NO, NO₂, and O₃. The archived observations support exploratory analysis of diurnal cycles, pollution events, sensor coverage, and relationships among pollutants.
+
+Meteorological observations used in the NEIU ozone analysis come from a nearby rooftop weather station.
+
+## Getting Started
+
+### Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-> **Note:** `cartopy` (used by `aqs_ozone_regional`) may require system-level
-> dependencies. See the
-> [cartopy install docs](https://scitools.org.uk/cartopy/docs/latest/installing.html)
-> if you run into issues.
+Some mapping notebooks use `cartopy`, which may require system-level geospatial libraries. A conda or Miniforge environment is often the easiest installation route.
 
-### 2. Configure AQS API credentials
+### Configure API credentials
 
-The AQS notebooks use [`pyaqsapi`](https://github.com/USEPA/pyaqsapi) to pull data from EPA's DataMart.
-You'll need a free API key from EPA:
+Create a `.env` file in the repository root. Do not commit this file.
 
-1. Register at [https://aqs.epa.gov/data/api/signup](https://aqs.epa.gov/data/api/signup)
-2. Create a `.env` file in the project root:
+For EPA AQS:
 
-```
+```text
 AQS_USERNAME=your_email@example.com
 AQS_KEY=your_api_key
 ```
 
-The notebooks load credentials with `python-dotenv` — never commit your `.env` file.
+For QuantAQ:
 
-### 3. Launch Jupyter
-
-```bash
-jupyter notebook
+```text
+QUANTAQ_APIKEY=your_quantaq_api_key
 ```
 
----
+The notebooks load credentials with `python-dotenv`.
 
-## Data Sources
+### Run the notebooks
 
-**EPA AQS (Air Quality System)**
-The primary source for regulatory-grade air quality measurements. Data is fetched via the
-`pyaqsapi` library, which wraps EPA's public REST API. The `aqs_utils.py` module handles
-datetime wrangling (local and GMT) and basic validation of API responses.
+Open a notebook and execute its cells from top to bottom. Configuration cells near the beginning specify dates, stations, pollutants, geographic regions, and figure-output directories.
 
-**NEIU rooftop: QuantAQ MODULAIR + Ambient Weather WS-500**
-A rooftop pairing on BBH at NEIU's main campus. The QuantAQ MODULAIR low-cost
-sensor measures PM1/PM2.5/PM10 and the gases CO, NO, NO₂, and O₃; the co-located
-Ambient Weather WS-500 station provides wind and other meteorology. Pairing the
-two allows wind-relative analysis (roses, lake-breeze diagnostics) with no
-sensor-to-sensor displacement. `modulair_examples.ipynb` shows basic MODULAIR
-access; `neiu_ozone_study.ipynb` is the paired analysis.
+A useful progression is:
 
-> CROCUS urban-network work has moved to the separate
-> [`crocus`](https://github.com/gregorywanderson/crocus) repository.
+1. `modulair_exploration.ipynb`
+2. `aqs_ozone_timeseries.ipynb`
+3. `aqs_ozone_study_cook.ipynb`
+4. `neiu_ozone_study.ipynb`
+5. `aqs_ozone_regional.ipynb`
 
----
+Run `download_modulair_data.ipynb` only when the local QuantAQ archive needs to be created or updated.
 
-## Dependencies
+## Figure Output
 
-| Package | Purpose |
-|---|---|
-| `pyaqsapi` | EPA AQS DataMart API client |
-| `pandas` / `numpy` | Data manipulation |
-| `matplotlib` | Plotting |
-| `cartopy` | Geospatial map projections |
-| `suntime` | Sunrise/sunset times (for diurnal shading) |
-| `windrose` | Wind and pollutant roses (`neiu_ozone_study`) |
-| `pytz` | Timezone handling (NEIU local-time analysis) |
-| `python-dotenv` | Loading API credentials from `.env` |
+Notebook figures are written to topic-specific subdirectories under `figures/`. Images selected for display in this README are stored in:
 
-See `requirements.txt` for the installable list.
+```text
+figures/github/
+```
 
----
-
-## Planned / in-progress
-
-- **AirBeam + HabitatMap.** Low-cost mobile air-quality sensing via
-  [HabitatMap](https://www.habitatmap.org/) and AirBeam devices. Initial
-  downloader work is in `habitatmapdownloader.ipynb`; analysis notebooks are
-  planned.
+Keeping README graphics separate allows them to be resized and cropped for GitHub without replacing publication-quality PDF and PNG outputs generated by the notebooks.
